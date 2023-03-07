@@ -1,0 +1,26 @@
+name: .NET 5
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET SDK 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x' 
+
+    - name: Install dependencies
+      run: dotnet restore CleanArchitecture.sln
+
+    - name: Build
+      run: dotnet build CleanArchitecture.sln --configuration Release --no-restore
+    
